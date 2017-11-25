@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using assignment.Models;
 using Microsoft.Extensions.FileProviders;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace assignment
 {
@@ -36,8 +37,13 @@ namespace assignment
         {
             services.AddDbContext<Dataset>();
             services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Dataset", Version = "v1" });
+            });
 
             services.AddSingleton(hostingEnvironment.ContentRootFileProvider);
+
 
         }
 
@@ -48,6 +54,14 @@ namespace assignment
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dataset API 1.0");
+                c.DocumentTitle("Dataset API 1.0");
+                c.RoutePrefix = "documentation";
+            });
+
             app.UseMvc();
         }
     }
