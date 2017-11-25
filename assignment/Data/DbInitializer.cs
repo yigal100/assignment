@@ -1,7 +1,9 @@
 using assignment.Models;
+using CsvHelper;
 using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +32,7 @@ namespace assignment.Data
 
         private const string dataFileName = "AMNE_IN_25112017114257839.csv";
 
-    public static void Initialize(Dataset context, IFileProvider fileProvider)
+        public static void Initialize(Dataset context, IFileProvider fileProvider)
         {
             context.Database.EnsureCreated();
 
@@ -47,68 +49,75 @@ namespace assignment.Data
             var partnerCountries = new HashSet<PartnerCountry>();
             var powerCodes = new HashSet<PowerCode>();
             var units = new HashSet<Unit>();
-            var records = new List<Record>();
             var file = fileProvider.GetFileInfo(dataFileName);
-            foreach (var line in File.ReadLines(file.PhysicalPath))
+
+
+            using (var csv = new CsvReader(File.OpenText(file.PhysicalPath)))
             {
-                var values = line.Split(",");
-                var industry = new Industry
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
                 {
-                    Id = values[(int)Fields.IndustryCode],
-                    Name = values[(int)Fields.IndustryName]
-                };
-                var declaringCountry = new DeclaringCountry
-                {
-                    Id = values[(int)Fields.DeclaringCountryCode],
-                    Name = values[(int)Fields.DeclaringCountryName]
-                };
-                var partnerCountry = new PartnerCountry
-                {
-                    Id = values[(int)Fields.PartnerCountryCode],
-                    Name = values[(int)Fields.PartnerCountryName]
-                };
-                var economicVariable = new EconomicVariable
-                {
-                    Id = values[(int)Fields.VariableCode],
-                    Name = values[(int)Fields.VariableName]
-                };
-                var powerCode = new PowerCode
-                {
-                    Id = int.Parse(values[(int)Fields.PowerCode]),
-                    Description = values[(int)Fields.PowerCodeDescription]
-                };
-                var unit = new Unit
-                {
-                    Id = values[(int)Fields.UnitCode],
-                    Name = values[(int)Fields.UnitName]
-                };
+                    var industry = new Industry
+                    {
+                        Id = csv[(int)Fields.IndustryCode],
+                        Name = csv[(int)Fields.IndustryName]
+                    };
+                    var declaringCountry = new DeclaringCountry
+                    {
+                        Id = csv[(int)Fields.DeclaringCountryCode],
+                        Name = csv[(int)Fields.DeclaringCountryName]
+                    };
+                    var partnerCountry = new PartnerCountry
+                    {
+                        Id = csv[(int)Fields.PartnerCountryCode],
+                        Name = csv[(int)Fields.PartnerCountryName]
+                    };
+                    var economicVariable = new EconomicVariable
+                    {
+                        Id = csv[(int)Fields.VariableCode],
+                        Name = csv[(int)Fields.VariableName]
+                    };
+                    var powerCodeString = csv[(int)Fields.PowerCode].Replace("\"", string.Empty);
+                    var powerCode = new PowerCode
+                    {
+                        Id = int.Parse(powerCodeString),
+                        Description = csv[(int)Fields.PowerCodeDescription]
+                    };
 
-                industries.Add(industry);
-                declaringCountries.Add(declaringCountry);
-                partnerCountries.Add(partnerCountry);
-                economicVariables.Add(economicVariable);
-                powerCodes.Add(powerCode);
-                units.Add(unit);
+                    var unit = new Unit
+                    {
+                        Id = csv[(int)Fields.UnitCode],
+                        Name = csv[(int)Fields.UnitName]
+                    };
 
-                Record record = new Record
-                {
-                    DeclaringCountry = declaringCountry,
-                    EconomicVariable = economicVariable,
-                    Industry = industry,
-                    PartnerCountry = partnerCountry,
-                    PowerCode = powerCode,
-                    Unit = unit,
-                    Year = int.Parse(values[(int)Fields.Year]),
-                };
-                if (int.TryParse(values[(int)Fields.Value], out int value))
-                {
-                    record.Value = value;
+                    industries.Add(industry);
+                    declaringCountries.Add(declaringCountry);
+                    partnerCountries.Add(partnerCountry);
+                    economicVariables.Add(economicVariable);
+                    powerCodes.Add(powerCode);
+                    units.Add(unit);
+
+                    var yearString = csv[(int)Fields.Year].Replace("\"", string.Empty);
+
+                    var record = new Record
+                    {
+                        DeclaringCountry = declaringCountry,
+                        EconomicVariable = economicVariable,
+                        Industry = industry,
+                        PartnerCountry = partnerCountry,
+                        Year = int.Parse(yearString),
+                        PowerCode = powerCode,
+                        Unit = unit,
+                    };
+                    if (int.TryParse(csv[(int)Fields.Value], out int value))
+                    {
+                        record.Value = value;
+                    }
+                    context.Records.Add(record);
                 }
-                records.Add(record);
+                context.SaveChanges();
             }
-            context.Records.AddRange(records);
-            context.SaveChanges();
-            
         }
     }
 }

@@ -9,6 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="AMNE_IN_25112017114257839.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1-preview1-final" />
   </ItemGroup>
@@ -18,9 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\AMNE_IN_25112017114257839.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

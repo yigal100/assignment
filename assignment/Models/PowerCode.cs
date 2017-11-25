@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
+    [Table("power_codes")]
     public class PowerCode
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

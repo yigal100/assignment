@@ -26,31 +26,16 @@ namespace assignment.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-/*
-            modelBuilder.Entity<DeclaringCountry>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
-            });
-
-            modelBuilder.Entity<PartnerCountry>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
-            });
-
-            modelBuilder.Entity<Industry>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.Name).IsRequired();
-            });
-*/
-
 
             modelBuilder.Entity<Record>(entity =>
             {
-                entity.HasKey(r => new { r.Industry, r.EconomicVariable, r.DeclaringCountry, r.PartnerCountry, r.Year});
-                entity.Property(e => e).IsRequired();
+                entity.HasKey(r => new {
+                    r.IndustryId,
+                    r.EconomicVariableId,
+                    r.DeclaringCountryId,
+                    r.PartnerCountryId,
+                    r.Year,
+                    r.QuantityId});
             });
         }
     }

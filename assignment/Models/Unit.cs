@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
+    [Table("units")]
     public class Unit
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

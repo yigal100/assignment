@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
+    [Table("economic_variables")]
     public class EconomicVariable
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

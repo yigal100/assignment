@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
+    [Table("partner_countries")]
     public class PartnerCountry
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

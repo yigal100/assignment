@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace assignment.Models
 {
+    [Table("declaring_countries")]
     public class DeclaringCountry
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
