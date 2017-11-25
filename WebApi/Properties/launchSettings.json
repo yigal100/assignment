@@ -16,7 +16,7 @@
             "ASPNETCORE_ENVIRONMENT": "Development"
         }
     },
-    "assignment": {
+    "webapi": {
         "commandName": "Project",
         "launchBrowser": true,
         "launchUrl": "documentation",

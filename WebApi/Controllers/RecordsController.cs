@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace assignment.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class RecordsController : Controller
     {
         // GET api/values
         [HttpGet]
