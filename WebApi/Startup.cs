@@ -18,15 +18,9 @@ namespace assignment
     {
         private IHostingEnvironment hostingEnvironment;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
-
+            Configuration = configuration;
             hostingEnvironment = env;
         }
 
@@ -43,8 +37,6 @@ namespace assignment
             });
 
             services.AddSingleton(hostingEnvironment.ContentRootFileProvider);
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +45,11 @@ namespace assignment
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage();
             }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -61,8 +57,6 @@ namespace assignment
                 c.DocumentTitle("Dataset API 1.0");
                 c.RoutePrefix = "documentation";
             });
-
-            app.UseMvc();
         }
     }
 }

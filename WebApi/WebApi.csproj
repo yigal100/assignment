@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1-preview1-final" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.1.0" />
   </ItemGroup>
@@ -26,7 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Folder>
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="echo &quot;cd $(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;cd &quot;$(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;echo &quot;building Angular&quot; &amp;&amp;^&#xD;&#xA;ng build -aot &amp;&amp;^&#xD;&#xA;echo 'copy files' &amp;&amp;^&#xD;&#xA;xcopy /I /E /Y &quot;$(SolutionDir)Angular\wwwroot&quot; &quot;$(ProjectDir)wwwroot&quot;" />
+  </Target>
 
 </Project>
