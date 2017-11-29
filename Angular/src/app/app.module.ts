@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { IndustriesComponent } from './industries/industries.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    IndustriesComponent
+    IndustriesComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,8 @@
 <h2>My Industries</h2>
 <ul class="industries">
-  <li *ngFor="let industry of industries" (click)="onSelect(industry)">
+  <li *ngFor="let industry of industries" (click)="onSelect(industry)" [class.selected]="industry === selectedIndustry">
     <span class="badge">{{industry.id}}</span> {{industry.name}}
   </li>
 </ul>
 
-<div *ngIf="selectedIndustry">
-
-  <h2>{{ selectedIndustry.name | uppercase }} Details</h2>
-  <div><span>id: </span>{{selectedIndustry.id}}</div>
-  <div>
-    <label>
-      name:
-      <input [(ngModel)]="selectedIndustry.name" placeholder="name">
-    </label>
-  </div>
-
-</div>
+<app-pie-chart [industry]="selectedIndustry"></app-pie-chart>
