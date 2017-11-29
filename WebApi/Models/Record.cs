@@ -13,7 +13,6 @@ namespace assignment.Models
         public string IndustryId { get; set; }
         public string PartnerCountryId { get; set; }
         public string DeclaringCountryId { get; set; }
-        public int QuantityId { get; set; }
         public int Year { get; set; }
         public string UnitId { get; set; }
         public int PowerCodeId { get; set; }

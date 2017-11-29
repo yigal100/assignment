@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using assignment.Models;
 using Microsoft.Extensions.FileProviders;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace assignment
 {

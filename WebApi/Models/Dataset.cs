@@ -40,7 +40,7 @@ namespace assignment.Models
                     r.DeclaringCountryId,
                     r.PartnerCountryId,
                     r.Year,
-                    r.QuantityId});
+                });
             });
         }
     }
