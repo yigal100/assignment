@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using assignment.Models;
 
 namespace assignment.Models
 {
@@ -17,6 +18,10 @@ namespace assignment.Models
         }
 
         public DbSet<Record> Records { get; set; }
+        public DbSet<EconomicVariable> EconomicVariables { get; set; }
+        public DbSet<Industry> Industry { get; set; }
+        public DbSet<DeclaringCountry> DeclaringCountry { get; set; }
+        public DbSet<PartnerCountry> PartnerCountry { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

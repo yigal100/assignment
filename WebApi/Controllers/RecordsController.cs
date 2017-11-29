@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace assignment.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class RecordsController : Controller
     {
