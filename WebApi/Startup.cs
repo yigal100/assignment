@@ -46,10 +46,14 @@ namespace assignment
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(b => b.AllowAnyOrigin().Build());
                 //app.UseDatabaseErrorPage();
             }
             app.UseDefaultFiles();
+            var options = new RewriteOptions().AddRewrite(@"^dataset(/)?.*$", "/index.html", true);
+            app.UseRewriter(options);
             app.UseStaticFiles();
+
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
