@@ -1,12 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace assignment.Models
+namespace WebApi.Model
 {
-    [Table("records")]
     public class Record
     {
         public string EconomicVariableId { get; set; }

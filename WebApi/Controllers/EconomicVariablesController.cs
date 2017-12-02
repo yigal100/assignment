@@ -1,21 +1,21 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using assignment.Models;
+using WebApi.Model;
+using WebApi.Data;
 
 namespace WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/EconomicVariables")]
+    [Route("api/economic_variables")]
     public class EconomicVariablesController : Controller
     {
-        private readonly Dataset context;
+        private readonly DatasetContext context;
 
-        public EconomicVariablesController(Dataset context)
+        public EconomicVariablesController(DatasetContext context)
         {
             this.context = context;
         }

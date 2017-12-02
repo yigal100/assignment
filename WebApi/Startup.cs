@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using assignment.Models;
-using Microsoft.Extensions.FileProviders;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Rewrite;
+using WebApi.Data;
+using WebApi.Services;
 
-namespace assignment
+namespace WebApi
 {
     public class Startup
     {
@@ -30,14 +24,16 @@ namespace assignment
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Dataset>();
+            services.AddDbContext<DatasetContext>();
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Dataset", Version = "v1" });
             });
 
+            services.AddEntityFrameworkMySql();
             services.AddSingleton(hostingEnvironment.ContentRootFileProvider);
+            services.AddScoped<IQueryService, QueryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

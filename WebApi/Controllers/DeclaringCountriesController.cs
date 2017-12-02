@@ -1,30 +1,30 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using assignment.Models;
+using WebApi.Model;
+using WebApi.Data;
 
 namespace WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/DeclaringCountries")]
+    [Route("api/declaring_countries")]
     public class DeclaringCountriesController : Controller
     {
-        private readonly Dataset _context;
+        private readonly DatasetContext context;
 
-        public DeclaringCountriesController(Dataset context)
+        public DeclaringCountriesController(DatasetContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/DeclaringCountries
         [HttpGet]
         public IEnumerable<DeclaringCountry> GetDeclaringCountry()
         {
-            return _context.DeclaringCountry;
+            return context.DeclaringCountry;
         }
 
         // GET: api/DeclaringCountries/5
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var declaringCountry = await _context.DeclaringCountry.SingleOrDefaultAsync(m => m.Id == id);
+            var declaringCountry = await context.DeclaringCountry.SingleOrDefaultAsync(m => m.Id == id);
 
             if (declaringCountry == null)
             {
@@ -60,11 +60,11 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(declaringCountry).State = EntityState.Modified;
+            context.Entry(declaringCountry).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,10 +90,10 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.DeclaringCountry.Add(declaringCountry);
+            context.DeclaringCountry.Add(declaringCountry);
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -119,21 +119,21 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var declaringCountry = await _context.DeclaringCountry.SingleOrDefaultAsync(m => m.Id == id);
+            var declaringCountry = await context.DeclaringCountry.SingleOrDefaultAsync(m => m.Id == id);
             if (declaringCountry == null)
             {
                 return NotFound();
             }
 
-            _context.DeclaringCountry.Remove(declaringCountry);
-            await _context.SaveChangesAsync();
+            context.DeclaringCountry.Remove(declaringCountry);
+            await context.SaveChangesAsync();
 
             return Ok(declaringCountry);
         }
 
         private bool DeclaringCountryExists(string id)
         {
-            return _context.DeclaringCountry.Any(e => e.Id == id);
+            return context.DeclaringCountry.Any(e => e.Id == id);
         }
     }
 }

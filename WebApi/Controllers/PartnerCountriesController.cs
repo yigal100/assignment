@@ -1,30 +1,30 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using assignment.Models;
+using WebApi.Model;
+using WebApi.Data;
 
 namespace WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/PartnerCountries")]
+    [Route("api/partner_countries")]
     public class PartnerCountriesController : Controller
     {
-        private readonly Dataset _context;
+        private readonly DatasetContext context;
 
-        public PartnerCountriesController(Dataset context)
+        public PartnerCountriesController(DatasetContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/PartnerCountries
         [HttpGet]
         public IEnumerable<PartnerCountry> GetPartnerCountry()
         {
-            return _context.PartnerCountry;
+            return context.PartnerCountry;
         }
 
         // GET: api/PartnerCountries/5
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var partnerCountry = await _context.PartnerCountry.SingleOrDefaultAsync(m => m.Id == id);
+            var partnerCountry = await context.PartnerCountry.SingleOrDefaultAsync(m => m.Id == id);
 
             if (partnerCountry == null)
             {
@@ -60,11 +60,11 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(partnerCountry).State = EntityState.Modified;
+            context.Entry(partnerCountry).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,10 +90,10 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.PartnerCountry.Add(partnerCountry);
+            context.PartnerCountry.Add(partnerCountry);
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -119,21 +119,21 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var partnerCountry = await _context.PartnerCountry.SingleOrDefaultAsync(m => m.Id == id);
+            var partnerCountry = await context.PartnerCountry.SingleOrDefaultAsync(m => m.Id == id);
             if (partnerCountry == null)
             {
                 return NotFound();
             }
 
-            _context.PartnerCountry.Remove(partnerCountry);
-            await _context.SaveChangesAsync();
+            context.PartnerCountry.Remove(partnerCountry);
+            await context.SaveChangesAsync();
 
             return Ok(partnerCountry);
         }
 
         private bool PartnerCountryExists(string id)
         {
-            return _context.PartnerCountry.Any(e => e.Id == id);
+            return context.PartnerCountry.Any(e => e.Id == id);
         }
     }
 }

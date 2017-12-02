@@ -1,30 +1,30 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using assignment.Models;
+using WebApi.Model;
+using WebApi.Data;
 
 namespace WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Industries")]
+    [Route("api/industries")]
     public class IndustriesController : Controller
     {
-        private readonly Dataset _context;
+        private readonly DatasetContext context;
 
-        public IndustriesController(Dataset context)
+        public IndustriesController(DatasetContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/Industries
         [HttpGet]
         public IEnumerable<Industry> GetIndustry()
         {
-            return _context.Industry;
+            return context.Industry;
         }
 
         // GET: api/Industries/5
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var industry = await _context.Industry.SingleOrDefaultAsync(m => m.Id == id);
+            var industry = await context.Industry.SingleOrDefaultAsync(m => m.Id == id);
 
             if (industry == null)
             {
@@ -60,11 +60,11 @@ namespace WebApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(industry).State = EntityState.Modified;
+            context.Entry(industry).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,10 +90,10 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Industry.Add(industry);
+            context.Industry.Add(industry);
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -119,21 +119,21 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var industry = await _context.Industry.SingleOrDefaultAsync(m => m.Id == id);
+            var industry = await context.Industry.SingleOrDefaultAsync(m => m.Id == id);
             if (industry == null)
             {
                 return NotFound();
             }
 
-            _context.Industry.Remove(industry);
-            await _context.SaveChangesAsync();
+            context.Industry.Remove(industry);
+            await context.SaveChangesAsync();
 
             return Ok(industry);
         }
 
         private bool IndustryExists(string id)
         {
-            return _context.Industry.Any(e => e.Id == id);
+            return context.Industry.Any(e => e.Id == id);
         }
     }
 }

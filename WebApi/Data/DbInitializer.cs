@@ -1,14 +1,11 @@
-using assignment.Models;
+using WebApi.Model;
 using CsvHelper;
 using Microsoft.Extensions.FileProviders;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace assignment.Data
+namespace WebApi.Data
 {
     public static class DbInitializer
     {
@@ -32,7 +29,7 @@ namespace assignment.Data
 
         private const string dataFileName = "AMNE_IN_25112017114257839.csv";
 
-        public static void Initialize(Dataset context, IFileProvider fileProvider)
+        public static void Initialize(DatasetContext context, IFileProvider fileProvider)
         {
             context.Database.EnsureCreated();
 
