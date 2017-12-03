@@ -31,14 +31,6 @@ namespace WebApi.Controllers
             ) BadRequest();
 
             return queryService.GetYearlyValues(economicVariableId, industryId, declaringCountryId, partnerCountryId);
-        }
-
-        // GET: api/query/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-               
+        }               
     }
 }

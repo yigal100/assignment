@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo &quot;cd $(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;cd &quot;$(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;echo &quot;building Angular&quot; &amp;&amp;^&#xD;&#xA;echo 'copy files' &amp;&amp;^&#xD;&#xA;xcopy /I /E /Y /D &quot;$(SolutionDir)Angular\wwwroot&quot; &quot;$(ProjectDir)wwwroot&quot;" />
+    <Exec Command="echo &quot;cd $(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;cd &quot;$(SolutionDir)Angular&quot; &amp;&amp;^&#xD;&#xA;echo &quot;building Angular&quot; &amp;&amp;^&#xD;&#xA;ng build --prod &amp;&amp;^&#xD;&#xA;echo 'copy files' &amp;&amp;^&#xD;&#xA;xcopy /I /E /Y /D &quot;$(SolutionDir)Angular\wwwroot&quot; &quot;$(ProjectDir)wwwroot&quot;" />
   </Target>
 
 </Project>
