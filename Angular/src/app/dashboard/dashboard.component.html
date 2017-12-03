@@ -1,14 +1,5 @@
 <h2>Dashboard</h2>
-<h3>By year</h3>
-
-<div class="economic_variables">
-  <label for="economicVariables">Economic variables: </label>
-  <select multiple id="economicVariables" [(ngModel)]="selectedEconomicVariables" [size]="economicVariables.length">
-    <option *ngFor="let variable of economicVariables" [ngValue]="variable" [selected]="variable.id == 'EMP'">
-      {{variable.name}}
-    </option>
-  </select>
-</div>
+<h3>Persons employed and production value by year</h3>
 
 <div>
   <label for="industry">Industry: </label>

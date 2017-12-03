@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Industry } from '../industry';
-import { EconomicVariable } from '../economic_variable';
 import { DeclaringCountry } from '../declaring_country';
 import { PartnerCountry } from '../partner_country';
 import { YearlyValueDto } from '../value_dtos';
 import { IndustryService } from '../industry.service';
-import { EconomicVariableService } from '../economic-variable.service';
 import { DeclaringCountryService } from '../declaring-country.service';
 import { PartnerCountryService } from '../partner-country.service';
 import { DashboardService } from '../dashboard.service';
@@ -19,10 +17,8 @@ export class DashboardComponent implements OnInit {
   selectedIndustry: Industry;
   selectedDeclaringCountry: DeclaringCountry;
   selectedPartnerCountry: PartnerCountry;
-  selectedEconomicVariables: EconomicVariable[];
 
   industries: Industry[] = [];
-  economicVariables: EconomicVariable[] = [];
   declaringCountries: DeclaringCountry[] = [];
   partnerCountries: PartnerCountry[] = [];
 
@@ -47,10 +43,21 @@ export class DashboardComponent implements OnInit {
   }
 
   Initialize(): void {
-    this.industryService.getIndustries().subscribe(industries => this.industries = industries);
-    this.economicVariableService.getEconomicVariables().subscribe(variables => this.economicVariables = variables);
-    this.declaringCountryService.getDeclaringCountries().subscribe(countries => this.declaringCountries = countries);
-    this.partnerCountryservice.getPartnerCountries().subscribe(countries => this.partnerCountries = countries);
+    this.industryService.getIndustries().subscribe(industries => {
+      this.industries = industries;
+      this.selectedIndustry = this.industries.find(x => x.id == "C9994");
+      this.refresh();
+    });
+    this.declaringCountryService.getDeclaringCountries().subscribe(countries => {
+      this.declaringCountries = countries;
+      this.selectedDeclaringCountry = this.declaringCountries[0];
+      this.refresh();
+    });
+    this.partnerCountryservice.getPartnerCountries().subscribe(countries => {
+      this.partnerCountries = countries;
+      this.selectedPartnerCountry = this.partnerCountries.find(x => x.id == "WORLD");
+      this.refresh();
+    });
   }
 
   getYearlyValues(industryId: string, declaringCountryId: string, partnerCountryId: string) {
@@ -74,13 +81,11 @@ export class DashboardComponent implements OnInit {
   constructor(
     public dashboardService: DashboardService,
     private industryService: IndustryService,
-    private economicVariableService: EconomicVariableService,
     private declaringCountryService: DeclaringCountryService,
     private partnerCountryservice: PartnerCountryService
   ) { }
 
   ngOnInit() {
     this.Initialize();
-    this.getYearlyValues("C05-09", "AUT", "A1");
   }
 }
