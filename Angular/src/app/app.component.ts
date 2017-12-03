@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Dataset assignment';
+  title = 'OECD Statistics on Measuring Globalisation';
 }

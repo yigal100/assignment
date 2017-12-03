@@ -1,4 +1,4 @@
-export class Industry {
+export class Unit {
   id: string;
   name: string;
 }

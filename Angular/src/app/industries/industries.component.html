@@ -1,8 +1,7 @@
-<h2>My Industries</h2>
+<h2>Industries</h2>
 <ul class="industries">
-  <li *ngFor="let industry of industries" (click)="onSelect(industry)" [class.selected]="industry === selectedIndustry">
+  <li *ngFor="let industry of industries">
     <span class="badge">{{industry.id}}</span> {{industry.name}}
   </li>
 </ul>
 
-<app-pie-chart [industry]="selectedIndustry"></app-pie-chart>

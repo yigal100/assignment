@@ -1,0 +1,33 @@
+<h2>Dashboard</h2>
+<h3>By year</h3>
+
+<div class="economic_variables">
+  <label for="economicVariables">Economic variables: </label>
+  <select multiple id="economicVariables" [(ngModel)]="selectedEconomicVariables" [size]="economicVariables.length">
+    <option *ngFor="let variable of economicVariables" [ngValue]="variable" [selected]="variable.id == 'EMP'">
+      {{variable.name}}
+    </option>
+  </select>
+</div>
+
+<div>
+  <label for="industry">Industry: </label>
+  <select id="industry" [(ngModel)]="selectedIndustry" (change)="refresh()">
+    <option *ngFor="let industry of industries" [ngValue]="industry">{{industry.name}}</option>
+  </select><br />
+
+  <label for="declaringCountry">Declaring country: </label>
+  <select id="declaringCountry" [(ngModel)]="selectedDeclaringCountry" (change)="refresh()">
+    <option *ngFor="let country of declaringCountries" [ngValue]="country">{{country.name}}</option>
+  </select><br />
+
+  <label for="partnerCountry">Partner country: </label>
+  <select id="partnerCountry" [(ngModel)]="selectedPartnerCountry" (change)="refresh()">
+    <option *ngFor="let country of partnerCountries" [ngValue]="country">{{country.name}}</option>
+  </select>
+</div>
+
+<div class="charts">
+  <div *ngIf="personsEmployedData" id="persons_employed_pie_chart" class="widget" [chartData]="personsEmployedData" [chartOptions]="personsEmployedChartOptions" chartType="PieChart" GoogleChart></div>
+  <div *ngIf="productionValueData" id="production_value_pie_chart" class="widget" [chartData]="productionValueData" [chartOptions]="productionValueChartOptions" chartType="PieChart" GoogleChart></div>
+</div>

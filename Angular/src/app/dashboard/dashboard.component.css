@@ -1,0 +1,15 @@
+.widget {
+  display: inline-block;
+}
+
+.economic_variables {
+  float: left;
+  height: 100%;
+  padding-right: 1em;
+}
+.economic_variables label {
+  display: block;
+  text-align: left;
+}
+
+

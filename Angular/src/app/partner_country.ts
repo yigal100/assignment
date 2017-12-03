@@ -1,4 +1,4 @@
-export class Industry {
+export class PartnerCountry {
   id: string;
   name: string;
 }

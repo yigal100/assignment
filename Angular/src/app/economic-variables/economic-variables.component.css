@@ -4,13 +4,13 @@
   color: white;
 }
 
-.industries {
+.economic_variables {
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
 }
 
-  .industries li {
+  .economic_variables li {
     display: inline-block;
     cursor: pointer;
     position: relative;
@@ -22,23 +22,23 @@
     border-radius: 4px;
   }
 
-    .industries li.selected:hover {
+    .economic_variables li.selected:hover {
       background-color: #BBD8DC !important;
       color: white;
     }
 
-    .industries li:hover {
+    .economic_variables li:hover {
       color: #607D8B;
       background-color: #DDD;
       left: .1em;
     }
 
-  .industries .text {
+  .economic_variables .text {
     position: relative;
     top: -3px;
   }
 
-  .industries .badge {
+  .economic_variables .badge {
     display: inline-block;
     font-size: small;
     color: white;

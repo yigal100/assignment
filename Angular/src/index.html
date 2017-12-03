@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Angular</title>
+  <title>Assignment</title>
   <base href="/">
-
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+    // !important: You want to give this variable(var googleLoaded = false;). This is used to run multiple chart in your jade.
+    var googleLoaded = false;
+    // !important: Define which chart packages to preload.Because this package uses ChartWrappers you can use any chart type that Google supports, but if it // isn't loaded it will load it on demand.
+    var googleChartsPackagesToLoad = ['piechart'];
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Industry } from '../industry';
-import { Industries } from '../mock-industries';
+import { IndustryService } from '../industry.service';
 
 @Component({
   selector: 'app-industries',
@@ -8,17 +8,15 @@ import { Industries } from '../mock-industries';
   styleUrls: ['./industries.component.css']
 })
 export class IndustriesComponent implements OnInit {
-  industries = Industries;
+  industries: Industry[];
 
-  selectedIndustry: Industry;
-
-  onSelect(industry: Industry): void {
-    this.selectedIndustry = industry;
+  getIndustries(): void {
+    this.industryService.getIndustries().subscribe(industries => this.industries = industries);
   }
-
-  constructor() { }
+  constructor(private industryService: IndustryService) { }
 
   ngOnInit() {
+    this.getIndustries();
   }
 
 }
