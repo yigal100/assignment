@@ -3,6 +3,9 @@ WORKDIR /app
 EXPOSE 80
 
 FROM microsoft/aspnetcore-build:2.0 AS build
+RUN npm install -g @angular/cli
+
+FROM build AS build_with_angular
 WORKDIR /src
 COPY *.sln ./
 COPY WebApi/WebApi.csproj WebApi/
@@ -11,7 +14,7 @@ COPY . .
 WORKDIR /src/WebApi
 RUN dotnet build -c Release -o /app
 
-FROM build AS publish
+FROM build_with_angular AS publish
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final
